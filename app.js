@@ -72,7 +72,6 @@ app.use(
             console.log(err);
             throw err;
           });
-        return event;
       }
     },
     graphiql: true // habilita console web para testar as queries
@@ -80,7 +79,10 @@ app.use(
 );
 
 mongoose
-  .connect(`mongodb...`)
+  .connect(
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-tvovt.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
   .then(() => {
     app.listen(3000);
   })
